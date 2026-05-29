@@ -1,0 +1,17 @@
+# macOS
+.DS_Store
+
+# Editor / IDE
+.vscode/
+.idea/
+*.swp
+
+# OS / misc
+Thumbs.db
+
+# Build artifacts (none today, future-proofing)
+node_modules/
+dist/
+
+# Backups
+*.bak
