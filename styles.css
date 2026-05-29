@@ -86,6 +86,238 @@ button { font: inherit; }
 /* Make Bootstrap sections sit above the background blobs */
 nav, section, footer, main { position: relative; z-index: 1; }
 
+/* ─── Starfield ─────────────────────────────────────────────────────────── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  border-radius: 50%;
+  background: transparent;
+  /* `box-shadow` lets us paint hundreds of dots from one element */
+}
+
+/* Three depth layers — different sizes, opacities, and drift speeds.
+   The box-shadow lists below are random positions across a 2000×2000 area,
+   then doubled via the ::after trick so the loop is seamless. */
+.stars-back {
+  box-shadow:
+    52px 1322px #fff, 178px 891px #fff, 312px 1645px #fff, 487px 233px #fff,
+    634px 1788px #fff, 798px 412px #fff, 940px 1067px #fff, 1112px 1505px #fff,
+    1287px 743px #fff, 1456px 1980px #fff, 1612px 89px #fff, 1788px 1234px #fff,
+    1934px 587px #fff, 145px 1955px #fff, 388px 1100px #fff, 542px 67px #fff,
+    721px 1444px #fff, 889px 1812px #fff, 1023px 322px #fff, 1198px 887px #fff,
+    1377px 1654px #fff, 1565px 411px #fff, 1730px 1890px #fff, 1894px 956px #fff,
+    72px 522px #fff, 234px 1377px #fff, 401px 1822px #fff, 588px 998px #fff,
+    767px 256px #fff, 922px 1690px #fff, 1099px 1133px #fff, 1265px 522px #fff,
+    1444px 1944px #fff, 1623px 712px #fff, 1789px 1455px #fff, 1955px 199px #fff,
+    99px 1166px #fff, 277px 644px #fff, 444px 1810px #fff, 622px 367px #fff,
+    811px 1290px #fff, 988px 1733px #fff, 1166px 88px #fff, 1344px 989px #fff,
+    1511px 1577px #fff, 1689px 422px #fff, 1855px 1844px #fff, 1988px 1066px #fff,
+    166px 412px #fff, 333px 1255px #fff, 522px 1933px #fff, 700px 833px #fff,
+    877px 211px #fff, 1056px 1499px #fff, 1233px 1788px #fff, 1411px 644px #fff,
+    1577px 1399px #fff, 1755px 88px #fff, 1922px 1822px #fff, 222px 256px #fff;
+  animation: drift-back 180s linear infinite;
+}
+.stars-back::after {
+  content: '';
+  position: absolute;
+  top: 2000px; left: 0;
+  width: 1px; height: 1px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inherit;
+}
+
+.stars-mid {
+  width: 2px;
+  height: 2px;
+  box-shadow:
+    122px 488px #FFF8EC, 311px 1233px #FFF8EC, 522px 1888px #FFF8EC,
+    711px 322px #FFF8EC, 933px 1455px #FFF8EC, 1144px 977px #FFF8EC,
+    1366px 1622px #FFF8EC, 1577px 244px #FFF8EC, 1788px 1377px #FFF8EC,
+    1955px 822px #FFF8EC, 89px 1755px #FFF8EC, 277px 555px #FFF8EC,
+    488px 1166px #FFF8EC, 700px 1844px #FFF8EC, 911px 411px #FFF8EC,
+    1122px 1322px #FFF8EC, 1344px 1788px #FFF8EC, 1555px 644px #FFF8EC,
+    1766px 1488px #FFF8EC, 1922px 977px #FFF8EC, 200px 855px #FFF8EC,
+    411px 1666px #FFF8EC, 622px 233px #FFF8EC, 833px 1099px #FFF8EC,
+    1044px 1755px #FFF8EC, 1255px 522px #FFF8EC, 1466px 1411px #FFF8EC,
+    1677px 922px #FFF8EC, 1888px 1666px #FFF8EC, 155px 1377px #FFF8EC,
+    366px 711px #FFF8EC, 577px 1955px #FFF8EC, 788px 1244px #FFF8EC,
+    1000px 477px #FFF8EC, 1211px 1844px #FFF8EC, 1422px 1100px #FFF8EC,
+    1633px 322px #FFF8EC, 1844px 1599px #FFF8EC, 244px 188px #FFF8EC,
+    455px 1488px #FFF8EC;
+  opacity: 0.85;
+  animation: drift-mid 120s linear infinite;
+}
+.stars-mid::after {
+  content: '';
+  position: absolute;
+  top: 2000px; left: 0;
+  width: 2px; height: 2px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inherit;
+}
+
+.stars-front {
+  width: 3px;
+  height: 3px;
+  box-shadow:
+    155px 244px #F5B82E, 444px 1188px #FFD56A, 733px 1855px #F5B82E,
+    1022px 533px #FFD56A, 1311px 1444px #F5B82E, 1600px 877px #FFD56A,
+    1888px 1722px #F5B82E, 89px 933px #FFD56A, 377px 1733px #F5B82E,
+    666px 322px #FFD56A, 955px 1488px #F5B82E, 1244px 911px #FFD56A,
+    1533px 1822px #F5B82E, 1822px 444px #FFD56A, 211px 1611px #F5B82E,
+    500px 855px #FFD56A, 788px 1377px #F5B82E, 1077px 1955px #FFD56A,
+    1366px 233px #F5B82E, 1655px 1144px #FFD56A;
+  opacity: 0.9;
+  animation: drift-front 90s linear infinite, twinkle 4s ease-in-out infinite;
+  filter: drop-shadow(0 0 4px rgba(245, 184, 46, 0.6));
+}
+.stars-front::after {
+  content: '';
+  position: absolute;
+  top: 2000px; left: 0;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: transparent;
+  box-shadow: inherit;
+  filter: inherit;
+}
+
+@keyframes drift-back {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2000px); }
+}
+@keyframes drift-mid {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2000px); }
+}
+@keyframes drift-front {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-2000px); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1;   }
+}
+
+/* Glowing floating orbs (soft, large, very subtle) */
+.glow-orb {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  pointer-events: none;
+}
+.glow-orb-1 {
+  top: 18%; left: 12%;
+  background: rgba(155, 77, 255, 0.85);
+  box-shadow: 0 0 20px 6px rgba(155, 77, 255, 0.45);
+  animation: float-orb-1 14s ease-in-out infinite alternate, twinkle-soft 3s ease-in-out infinite;
+}
+.glow-orb-2 {
+  top: 65%; right: 18%;
+  background: rgba(245, 184, 46, 0.9);
+  box-shadow: 0 0 24px 8px rgba(245, 184, 46, 0.5);
+  animation: float-orb-2 18s ease-in-out infinite alternate, twinkle-soft 4.5s ease-in-out 1s infinite;
+}
+.glow-orb-3 {
+  top: 38%; right: 8%;
+  background: rgba(201, 194, 232, 0.9);
+  box-shadow: 0 0 18px 5px rgba(201, 194, 232, 0.45);
+  animation: float-orb-3 16s ease-in-out infinite alternate, twinkle-soft 5s ease-in-out 2s infinite;
+}
+@keyframes float-orb-1 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(80px, 120px); }
+}
+@keyframes float-orb-2 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-100px, -60px); }
+}
+@keyframes float-orb-3 {
+  from { transform: translate(0, 0); }
+  to   { transform: translate(-60px, 90px); }
+}
+@keyframes twinkle-soft {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 1;   }
+}
+
+/* Shooting stars — diagonal streaks, very occasional */
+.shooting-stars {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.shoot {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: #FFF;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08),
+              0 0 10px 4px rgba(255, 255, 255, 0.4),
+              0 0 30px 12px rgba(245, 184, 46, 0.15);
+  opacity: 0;
+}
+.shoot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  right: 0;
+  width: 100px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.85));
+  transform: translateY(-50%);
+}
+.shoot.s1 {
+  top: 15%;
+  left: 110%;
+  animation: shoot-1 7s ease-in 2s infinite;
+}
+.shoot.s2 {
+  top: 55%;
+  left: 110%;
+  animation: shoot-2 9s ease-in 5s infinite;
+}
+.shoot.s3 {
+  top: 32%;
+  left: 110%;
+  animation: shoot-3 11s ease-in 8s infinite;
+}
+@keyframes shoot-1 {
+  0%   { transform: translate(0, 0)       rotate(-22deg); opacity: 0; }
+  5%   { opacity: 1; }
+  20%  { transform: translate(-115vw, 40vh) rotate(-22deg); opacity: 0; }
+  100% { transform: translate(-115vw, 40vh) rotate(-22deg); opacity: 0; }
+}
+@keyframes shoot-2 {
+  0%   { transform: translate(0, 0)       rotate(-18deg); opacity: 0; }
+  6%   { opacity: 1; }
+  22%  { transform: translate(-120vw, 30vh) rotate(-18deg); opacity: 0; }
+  100% { transform: translate(-120vw, 30vh) rotate(-18deg); opacity: 0; }
+}
+@keyframes shoot-3 {
+  0%   { transform: translate(0, 0)       rotate(-25deg); opacity: 0; }
+  5%   { opacity: 1; }
+  18%  { transform: translate(-118vw, 50vh) rotate(-25deg); opacity: 0; }
+  100% { transform: translate(-118vw, 50vh) rotate(-25deg); opacity: 0; }
+}
+
 /* ─── Navbar / Brand ────────────────────────────────────────────────────── */
 .navbar { background: transparent; }
 .navbar-brand .brand-logo {
@@ -500,4 +732,15 @@ footer {
   .reveal, .service-card { opacity: 1 !important; transform: none !important; }
   .bg-blob   { animation: none !important; }
   .hero-title .accent { animation: none !important; }
+  /* Hide all the motion-heavy starfield bits */
+  .stars, .glow-orb, .shooting-stars { animation: none !important; }
+  .shooting-stars { display: none; }
+}
+
+/* Mobile — drop the shooting stars + glow orbs so we save battery and DOM cost.
+   Keep the static + drifting stars so the magic stays. */
+@media (max-width: 576px) {
+  .shooting-stars { display: none; }
+  .glow-orb-3     { display: none; }
+  .stars-front    { animation-duration: 60s, 4s; }
 }
